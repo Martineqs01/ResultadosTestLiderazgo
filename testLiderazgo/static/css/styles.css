@@ -1,0 +1,28 @@
+/* Gradiente para el header */
+.header-gradient {
+    background: linear-gradient(to right, #4e73df, #2e59d9, #224abe);
+}
+
+/* Estilo del logo */
+.logo {
+    width: 80px; /* Ajusta según el tamaño deseado */
+    height: auto;
+}
+
+/* Tamaño de las letras en el header */
+header h1 {
+    font-size: 1.8rem; /* Tamaño del título principal */
+}
+
+header h2 {
+    font-size: 1.2rem; /* Tamaño del subtítulo */
+}
+
+/* Botones del menú de navegación */
+nav button {
+    font-size: 1rem;
+    padding: 0.5rem 1.5rem;
+    border-radius: 50px; /* Para un diseño más estilizado */
+}
+
+

@@ -1,0 +1,177 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container mt-5">
+    <h2 class="text-center mb-4">Tablas de Resultados</h2>
+
+    <div id="tablaCarousel" class="carousel slide" data-bs-ride="carousel">
+        <!-- Indicadores -->
+        <div class="carousel-indicators">
+            <button type="button" data-bs-target="#tablaCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Grupo 1"></button>
+            <button type="button" data-bs-target="#tablaCarousel" data-bs-slide-to="1" aria-label="Grupo 2"></button>
+        </div>
+
+        <!-- Contenido del carrusel -->
+        <div class="carousel-inner">
+            <!-- Grupo 1: Kurt Lewin y Daniel Goleman -->
+            <div class="carousel-item active">
+                <div class="row">
+                    <!-- Tabla Kurt Lewin -->
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-header text-center">
+                                <strong>Tipo de liderazgo Kurt Lewin</strong>
+                            </div>
+                            <div class="card-body">
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>Tipo liderazgo</th>
+                                            <th>Cantidad</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for liderazgo in liderazgos_kurt %}
+                                        <tr>
+                                            <td>{{ liderazgo.liderazgo_kurt_lewin }}</td>
+                                            <td>{{ liderazgo.cantidad }}</td>
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tabla Daniel Goleman -->
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-header text-center">
+                                <strong>Tipo de liderazgo Daniel Goleman</strong>
+                            </div>
+                            <div class="card-body">
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>Tipo liderazgo</th>
+                                            <th>Cantidad</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for liderazgo in liderazgos_goleman %}
+                                        <tr>
+                                            <td>{{ liderazgo.liderazgo_daniel_goleman }}</td>
+                                            <td>{{ liderazgo.cantidad }}</td>
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Grupo 2: Localidades y Programas Educativos -->
+            <div class="carousel-item">
+                <div class="row">
+                    <!-- Tabla géneros -->
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-header text-center">
+                                <strong>Géneros que participaron</strong>
+                            </div>
+                            <div class="card-body">
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>Género</th>
+                                            <th>Cantidad</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for sexo in sexo %}
+                                        <tr>
+                                            <td>{{ sexo.sexo }}</td>
+                                            <td>{{ sexo.cantidad }}</td>
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tabla Programas Educativos -->
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-header text-center">
+                                <strong>Programas Educativos que participaron</strong>
+                            </div>
+                            <div class="card-body">
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>Programas Educativos</th>
+                                            <th>Cantidad</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for programas in programas %}
+                                        <tr>
+                                            <td>{{ programas.programa_educativo }}</td>
+                                            <td>{{ programas.cantidad }}</td>
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Controles del carrusel -->
+        <button class="carousel-control-prev custom-carousel-control" type="button" data-bs-target="#tablaCarousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Anterior</span>
+        </button>
+        <button class="carousel-control-next custom-carousel-control" type="button" data-bs-target="#tablaCarousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Siguiente</span>
+        </button>
+    </div>
+</div>
+
+<!-- Estilos personalizados -->
+<style>
+    .custom-carousel-control {
+        width: 50px; /* Ajusta el ancho de los botones */
+        height: 50px; /* Ajusta el alto de los botones */
+        background-color: rgba(50, 50, 50, 0.8); /* Color gris oscuro */
+        border-radius: 50%; /* Botón circular */
+        top: 50%; /* Centra verticalmente */
+        transform: translateY(-50%); /* Asegura el centrado vertical */
+    }
+
+    .carousel-control-prev {
+        left: -50px; /* Mueve el botón más al costado */
+    }
+
+    .carousel-control-next {
+        right: -50px; /* Mueve el botón más al costado */
+    }
+
+    
+
+    .carousel-control-prev:hover, 
+    .carousel-control-next:hover {
+        background-color: rgba(80, 80, 80, 0.9); /* Color más oscuro al pasar el cursor */
+    }
+</style>
+{% endblock content %}
+
+
+

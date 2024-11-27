@@ -1,0 +1,182 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container mt-4 mb-3">
+    <h2 class="text-center mb-4">Gráficos de los Resultados</h2>
+
+    <!-- Carrusel de Bootstrap -->
+    <div id="graficosCarousel" class="carousel slide " data-bs-ride="carousel">
+        <div class="carousel-inner">
+            <!-- Slide 1: Gráficos de Kurt Lewin y Daniel Goleman -->
+            <div class="carousel-item active">
+                <div class="row">
+                    <div class="col-md-6 text-center">
+                        <h5>Liderazgos Kurt Lewin</h5>
+                        <canvas id="chartKurt" width="400" height="250"></canvas>
+                    </div>
+                    <div class="col-md-6 text-center">
+                        <h5>Liderazgos Daniel Goleman</h5>
+                        <canvas id="chartGoleman" width="400" height="250"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 2: Gráfico de Localidades -->
+            <div class="carousel-item">
+                <div class="text-center">
+                    <h5>Localidades que participaron</h5>
+                    <canvas id="localidad" style="width:100%; max-width:1200px;" height="100"></canvas>
+                </div>
+            </div>
+
+            <!-- Slide 3: Gráficos de Género y Programa Educativo -->
+            <div class="carousel-item">
+                <div class="row">
+                    <div class="col-md-6 text-center">
+                        <h5>Géneros</h5>
+                        <canvas id="genero" width="400" height="250"></canvas>
+                    </div>
+                    <div class="col-md-6 text-center">
+                        <h5>Programas Educativos que participaron</h5>
+                        <canvas id="programEdu" width="400" height="250"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Controles del Carrusel -->
+        <button class="carousel-control-prev custom-carousel-control" type="button" data-bs-target="#graficosCarousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Anterior</span>
+        </button>
+        <button class="carousel-control-next custom-carousel-control" type="button" data-bs-target="#graficosCarousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Siguiente</span>
+        </button>
+    </div>
+</div>
+
+<!-- Estilos personalizados -->
+<style>
+    .custom-carousel-control {
+        width: 50px; /* Ajusta el ancho de los botones */
+        height: 50px; /* Ajusta el alto de los botones */
+        background-color: rgba(50, 50, 50, 0.8); /* Color gris oscuro */
+        border-radius: 50%; /* Botón circular */
+        top: 50%; /* Centra verticalmente */
+        transform: translateY(-50%); /* Asegura el centrado vertical */
+    }
+
+    .carousel-control-prev {
+        left: -50px; /* Mueve el botón más al costado */
+    }
+
+    .carousel-control-next {
+        right: -50px; /* Mueve el botón más al costado */
+    }
+
+    
+
+    .carousel-control-prev:hover, 
+    .carousel-control-next:hover {
+        background-color: rgba(80, 80, 80, 0.9); /* Color más oscuro al pasar el cursor */
+    }
+</style>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Datos de los tipos de liderazgo
+        const liderazgosKurt = JSON.parse('{{ liderazgos_kurt|safe }}');
+        const liderazgosGoleman = JSON.parse('{{ liderazgos_goleman|safe }}');
+        const localidad = JSON.parse('{{ localidad|safe }}')
+        const genero = JSON.parse('{{ genero|safe }}')
+        const programEdu = JSON.parse('{{ programEdu|safe }}')
+    
+        // Configuración del gráfico de Kurt Lewin
+        const ctxKurt = document.getElementById('chartKurt').getContext('2d');
+        new Chart(ctxKurt, {
+            type: 'bar',
+            data: {
+                labels: Object.keys(liderazgosKurt),
+                datasets: [{
+                    label: 'Cantidad',
+                    data: Object.values(liderazgosKurt),
+                    backgroundColor: 'rgba(54, 162, 235, 0.5)',
+                    borderColor: 'rgba(54, 162, 235, 1)',
+                    borderWidth: 1
+                }]
+            }
+        });
+    
+        // Configuración del gráfico de Daniel Goleman
+        const ctxGoleman = document.getElementById('chartGoleman').getContext('2d');
+        new Chart(ctxGoleman, {
+            type: 'bar',
+            data: {
+                labels: Object.keys(liderazgosGoleman),
+                datasets: [{
+                    label: 'Cantidad',
+                    data: Object.values(liderazgosGoleman),
+                    backgroundColor: 'rgba(255, 159, 64, 0.5)',
+                    borderColor: 'rgba(255, 159, 64, 1)',
+                    borderWidth: 1
+                }]
+            }
+        });
+
+        // Configuración del gráfico de localidades
+     const ctxlocalidad = document.getElementById('localidad').getContext('2d');
+     new Chart(ctxlocalidad, {
+         type: 'bar',
+         data: {
+            labels: Object.keys(localidad),
+            datasets: [{
+                label: 'Cantidad',
+                data: Object.values(localidad),
+                backgroundColor: 'rgba(54, 162, 235, 0.5)',
+                borderColor: 'rgba(54, 162, 235, 1)',
+                borderWidth: 1
+            }]
+        }
+     });
+
+     // Configuración del gráfico de genero
+     const ctxGenero = document.getElementById('genero').getContext('2d');
+     new Chart(ctxGenero, {
+         type: 'bar',
+         data: {
+            labels: Object.keys(genero),
+            datasets: [{
+                label: 'Cantidad',
+                data: Object.values(genero),
+                backgroundColor: 'rgba(54, 162, 235, 0.5)',
+                borderColor: 'rgba(54, 162, 235, 1)',
+                borderWidth: 1
+            }]
+        }
+     });
+
+     // Configuración del gráfico de genero
+     const ctxProgramEdu = document.getElementById('programEdu').getContext('2d');
+     new Chart(ctxProgramEdu, {
+         type: 'bar',
+         data: {
+            labels: Object.keys(programEdu),
+            datasets: [{
+                label: 'Cantidad',
+                data: Object.values(programEdu),
+                backgroundColor: 'rgba(255, 159, 64, 0.5)',
+                borderColor: 'rgba(255, 159, 64, 1)',
+                borderWidth: 1
+            }]
+        }
+     });
+
+    });
+
+    console.log('{{ liderazgos_kurt|safe }}');
+
+</script>
+
+{% endblock content %}

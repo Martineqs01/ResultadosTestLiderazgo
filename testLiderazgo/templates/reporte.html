@@ -1,0 +1,216 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container-fluid mt-3">
+    <div class="row">
+        <!-- Formulario de búsqueda centrado -->
+        <div class="col-12 d-flex justify-content-center ">
+            <form method="GET" action="{% url 'reporte' %}" class="w-75">
+                <div class="row">
+                    <div class="col-md-3">
+                        <input type="text" name="nombre" class="form-control" placeholder="Buscar por nombre" value="{{ request.GET.nombre }}">
+                    </div>
+                    <div class="col-md-1">
+                        <select name="sexo" class="form-control">
+                            <option value="">Género</option>
+                            <option value="Masculino">Masculino</option>
+                            <option value="Femenino">Femenino</option>
+                            <option value="Prefiero no decirlo">Prefiero no decirlo</option>                
+                        </select>
+                    </div> 
+                    <div class="col-md-2">
+                        <input type="text" name="localidad" class="form-control" placeholder="Buscar por localidad" value="{{ request.GET.localidad }}">
+                    </div>
+                    <div class="col-md-2">
+                        <input type="text" name="prepa" class="form-control" placeholder="Buscar por Preparatoria" value="{{ request.GET.prepa_procedencia }}">
+                    </div>
+                    <div class="col-md-2">            
+                        <select name="institucion" class="form-control">
+                            <option value="">Institución educativa</option>
+                            <option value="instituto">Instituto Tecnológico Superior de Hopelchén</option>                                 
+                        </select>
+                    </div>
+                    <div class="col-md-1">
+                        <a href="{% url 'reporte' %}" class="btn btn-secondary">Limpiar</a>
+                    </div>
+                    <div class="col-md-3">
+                        <select name="programa" class="form-control mt-2">
+                            <option value="">Programa Educativo</option>
+                            <option value="sustentable">Ingeniería de innovación agrícola sustentable</option>
+                            <option value="computacionales">Ingeniería en sistemas computacionales</option>
+                            <option value="Licenciatura">Licenciatura en administración</option>
+                        </select>
+                    </div>
+                    <div class="col-md-2">
+                        <select name="semestre" class="form-control mt-2">
+                            <option value="">Semestre</option>
+                            <option value="1ro">1ro</option>
+                            <option value="2do">2do</option>
+                            <option value="3ro">3ro</option>
+                            <option value="4to">4to</option>
+                            <option value="5to">5to</option>
+                            <option value="6to">6to</option>
+                            <option value="7mo">7mo</option>
+                            <option value="8vo">8vo</option>
+                            <option value="9no">9no</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <select name="kurt" class="form-control mt-2">
+                            <option value="">Lewin Kurt</option>
+                            <option value="Democrático">Democrático</option>
+                            <option value="Autoritario">Autoritario</option>
+                            <option value="Laissez-Faire">Laissez-Faire</option>
+                        </select>
+                    </div>
+                    <div class="col-md-2">
+                        <select name="goleman" class="form-control mt-2">
+                            <option value="">Daniel Goleman</option>
+                            <option value="Afiliativo">Afiliativo</option>
+                            <option value="Autoritario">Autoritario</option>
+                            <option value="DEMOCRÁTICO">Democrático</option>
+                            <option value="Timonel">Timonel</option>
+                            <option value="Tutorial">Tutorial</option>
+                            <option value="Visionario">Visionario</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary col-md-1 mt-3">Buscar</button>
+                </div>        
+            </form>
+        </div>
+
+
+<div class="container-fluid mt-1">
+    <div class="row">
+        <!-- Filtros activos a la izquierda, sin espacio en blanco -->
+        <div class="col-md-2 p-1">
+            <div class="card h-100">
+                <div class="card-header">
+                    <strong>Filtros Activos</strong>
+                </div>
+                <div class="card-body">
+                    <ul>
+                        {% if request.GET.nombre %}
+                        <li>Nombre: {{ request.GET.nombre }}</li>
+                        {% endif %}
+                        {% if request.GET.sexo %}
+                        <li>Género: {{ request.GET.sexo }}</li>
+                        {% endif %}
+                        {% if request.GET.localidad %}
+                        <li>Localidad: {{ request.GET.localidad }}</li>
+                        {% endif %}
+                        {% if request.GET.prepa %}
+                        <li>Preparatoria: {{ request.GET.prepa }}</li>
+                        {% endif %}
+                        {% if request.GET.institucion %}
+                        <li>Institución educativa: {{ request.GET.institucion }}</li>
+                        {% endif %}
+                        {% if request.GET.programa %}
+                        <li>Programa Educativo: {{ request.GET.programa }}</li>
+                        {% endif %}
+                        {% if request.GET.semestre %}
+                        <li>Semestre: {{ request.GET.semestre }}</li>
+                        {% endif %}
+                        {% if request.GET.kurt %}
+                        <li>Kurt Lewin: {{ request.GET.kurt }}</li>
+                        {% endif %}
+                        {% if request.GET.goleman %}
+                        <li>Daniel Goleman: {{ request.GET.goleman }}</li>
+                        {% endif %}
+                    </ul>
+                    {% if not request.GET %}
+                    <p>No hay filtros activos.</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+        <!-- Tabla de datos (Ocupa el resto del espacio) -->
+        <div class="col-md-10">
+            <div class="card">
+                <div class="card-header text-center">
+                    <strong>Resultados</strong>
+                </div>
+                <div class="card-body">
+                    <!-- Aquí va tu tabla -->
+                    <table class="table table-bordered">
+                        <thead class="table-dark">
+                            <tr>
+                                <th>Nombre</th>
+                                <th>Sexo</th>
+                                <th>Localidad</th>
+                                <th>Correo electrónico</th>
+                                <th>Preparatoria de procedencia</th>
+                                <th>Institución educativa</th>
+                                <th>Programa educativo</th>
+                                <th>Semestre</th>
+                                <th>Kurt Lewin liderazgo</th>
+                                <th>Daniel Goleman liderazgo</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for estudiante in page_obj %}
+                                <tr>
+                                    <td>{{ estudiante.nombre }}</td>
+                                    <td>{{ estudiante.sexo }}</td>
+                                    <td>{{ estudiante.localidad }}</td>
+                                    <td>{{ estudiante.correo_electronico }}</td>
+                                    <td>{{ estudiante.prepa_procedencia }}</td>
+                                    <td>{{ estudiante.institucion_educativa }}</td>
+                                    <td>{{ estudiante.programa_educativo }}</td>
+                                    <td>{{ estudiante.semestre }}</td>
+                                    <td>{{ estudiante.liderazgo_kurt_lewin }}</td>
+                                    <td>{{ estudiante.liderazgo_daniel_goleman }}</td>
+                                </tr>
+                            {% empty %}
+                                <tr>
+                                    <td colspan="10" class="text-center">No se encontraron resultados</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+    
+
+    <!-- Controles de paginación -->
+    <nav aria-label="Paginación">
+        <ul class="pagination justify-content-center mt-4">
+            {% if page_obj.has_previous %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ page_obj.previous_page_number }}{% for key, value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}" aria-label="Anterior">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+            {% endif %}
+    
+            {% for num in page_obj.paginator.page_range %}
+                <li class="page-item {% if page_obj.number == num %}active{% endif %}">
+                    <a class="page-link" href="?page={{ num }}{% for key, value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}">{{ num }}</a>
+                </li>
+            {% endfor %}
+    
+            {% if page_obj.has_next %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ page_obj.next_page_number }}{% for key, value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}" aria-label="Siguiente">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            {% endif %}
+        </ul>
+    </nav>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
+{% endblock content %}
+
+
+
