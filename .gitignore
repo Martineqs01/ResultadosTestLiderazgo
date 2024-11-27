@@ -1,5 +1,9 @@
 *.pyc
 __pycache__/
 #db.sqlite3
+# Ignorar la carpeta generada por collectstatic
 staticfiles/
+
+# No ignorar los archivos de la carpeta static original
+!static/
 .env
